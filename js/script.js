@@ -5,10 +5,6 @@ const modal = document.querySelector("#modal");
 const deleteButton = document.getElementById("confirm-delete");
 const closeModal = document.getElementById("cancel-delete");
 
-var selectedId = "";
-
-console.log(selectedId, "selectedId");
-
 document.addEventListener(RENDER_EVENTS, function () {
   const uncompletedBookList = document.getElementById("books");
   uncompletedBookList.innerHTML = "";
@@ -34,8 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
     loadDataFromStorage();
   }
 });
-
-console.log(books);
 
 function searchBook() {
   const query = document.getElementById("search-book").value;
