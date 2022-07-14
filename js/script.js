@@ -134,7 +134,20 @@ function makeBook(bookObject) {
       addBookToCompleted(bookObject.id);
     });
 
-    container.append(checkButton);
+    const trashButton = document.createElement("button");
+    trashButton.classList.add("trash-button");
+
+    trashButton.addEventListener("click", () => {
+      modal.classList.toggle("modal-open");
+
+      deleteButton.addEventListener("click", () => {
+        removeBookFromCompleted(bookObject.id);
+        modal.style.transition = "1s";
+        modal.classList.remove("modal-open");
+      });
+    });
+
+    container.append(checkButton, trashButton);
   }
 
   return container;
