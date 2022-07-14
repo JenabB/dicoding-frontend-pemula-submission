@@ -1,6 +1,14 @@
 const books = [];
 const RENDER_EVENTS = "render_books";
 
+const modal = document.querySelector("#modal");
+const deleteButton = document.getElementById("confirm-delete");
+const closeModal = document.getElementById("cancel-delete");
+
+var selectedId = "";
+
+console.log(selectedId, "selectedId");
+
 document.addEventListener(RENDER_EVENTS, function () {
   const uncompletedBookList = document.getElementById("books");
   uncompletedBookList.innerHTML = "";
@@ -26,6 +34,15 @@ document.addEventListener("DOMContentLoaded", function () {
     loadDataFromStorage();
   }
 });
+
+console.log(books);
+
+function searchBook() {
+  const query = document.getElementById("search-book").value;
+  if (!query) return null;
+  const search = books.filter((book) => book.title === query);
+  log;
+}
 
 function addBook() {
   const title = document.getElementById("title").value;
@@ -61,6 +78,18 @@ function generateBookObject(id, title, author, year, isCompleted) {
   };
 }
 
+//confirm delete
+deleteButton.addEventListener("click", () => {
+  modal.style.transition = "1s";
+  modal.classList.remove("modal-open");
+});
+
+// cancel delete
+closeModal.addEventListener("click", () => {
+  modal.style.transition = "1s";
+  modal.classList.remove("modal-open");
+});
+
 function makeBook(bookObject) {
   //create element for book object
   const textTitle = document.createElement("h2");
@@ -92,8 +121,14 @@ function makeBook(bookObject) {
     const trashButton = document.createElement("button");
     trashButton.classList.add("trash-button");
 
-    trashButton.addEventListener("click", function () {
-      removeBookFromCompleted(bookObject.id);
+    trashButton.addEventListener("click", () => {
+      modal.classList.toggle("modal-open");
+
+      deleteButton.addEventListener("click", () => {
+        removeBookFromCompleted(bookObject.id);
+        modal.style.transition = "1s";
+        modal.classList.remove("modal-open");
+      });
     });
 
     container.append(undoButton, trashButton);
